@@ -1,0 +1,57 @@
+Name: Ron Shuvy
+ID: 206330193
+CS-USER: ronshuvy
+
+SpreaderDetectorBackend
+-----------------------------
+Terminology
+----------------
+1. "contacts" - people who came in contact with someone who has an infectious disease ("spreader").
+in other words, contacts = all the persons in <people.in> file.
+2. Let n denote the number of people.
+
+Program Flow
+----------------
+Store people information -> Sort people by ID -> Calculate and update the risk level of each one
+-> Sort people by risk level -> Write the results to a file
+
+Input processing
+----------------
+<people.in>
+1. Initializing an array (dynamic).
+2. Adding each person to the list.
+3. Sorting the list by ID in order to search specific persons easily afterwards.
+Space Complexity - O(n)
+Time Complexity - O(nlogn)
+
+
+<meeting.in>
+On each line :
+1. Searching for the contact in the contact list.
+2. (Only If necessary) Searching for the spreader in the contact list and stores his risk value.
+3. Calculating the infection probability of the contact and updating 'risk' field accordingly.
+4. Stores the current spreader (to prevent redundant search in the following lines)
+Space Complexity - O(1)
+Time Complexity - O(nlogn)
+Explanation -
+As a graph without cycles (acyclic graph), the number of meetings is bounded by n.
+we search (using BinarySearch) for each person twice at most (one as a spreader and one as a contact)
+We have n persons and each search takes O(logn). Therefore we get O(nlogn).
+
+
+Data storing
+------------
+* struct 'Person' - stores an individual personal details (id, name, age and risk).
+* struct 'InfectionChain' - stores all contacts inside a dynamic array of 'Person', along with their total number.
+* Meeting details is not stored anywhere. Why? because it is simply not necessary.
+the infection probability of each individual can be calculated while reading the input file.
+* Total Space Complexity - O(n)
+
+Results sorting
+---------------
+* Sorting results by risk level using QuickSort build-in algorithm. (O(nlog))
+
+Overall Complexity
+---------------
+TIME - O(nlogn)
+SPACE - O(n)
